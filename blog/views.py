@@ -5,18 +5,21 @@
 
 @description: Blog views.
 """
-from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse, HttpResponseRedirect
-from django.urls import reverse
-from django.utils import timezone
+# from django.shortcuts import render, get_object_or_404
+# from django.http import HttpResponse, HttpResponseRedirect
+# from django.urls import reverse
+# from django.utils import timezone
 from django.views import generic
 
 from .models import Post
 
 
 class PostList(generic.ListView):
-    queryset = Post.objects.filter(status=1).order_by('-created_on')
+    # queryset = Post.objects.filter(status=1).order_by('-created_on')
     template_name = 'index.html'
+
+    def get_queryset(self):
+        return Post.objects.filter(status=1).order_by('-created_on')
 
 
 class PostDetail(generic.DetailView):
